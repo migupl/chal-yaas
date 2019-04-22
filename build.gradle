@@ -1,0 +1,16 @@
+plugins {
+    id 'groovy'
+    id 'application'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation 'org.codehaus.groovy:groovy-all:2.5.4'
+
+    testImplementation 'org.spockframework:spock-core:1.2-groovy-2.5'
+}
+
+mainClassName = 'chal.yaas.App'
