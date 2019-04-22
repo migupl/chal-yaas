@@ -1,10 +1,15 @@
+import chal.yaas.AnagramSolver
+
 class Anagrammatist {
+
+    static AnagramSolver anagramSolver
 
     static void main(String... args) {
         if (dictionaryFolderIsReceived(args)) {
-            String dictionary = args[0]
-            println "Dictionary folder $dictionary will be loaded"
+            String dictionariesFolder = args[0]
+            println "Dictionaries folder $dictionariesFolder will be loaded"
 
+            anagramSolver = new AnagramSolver(dictionariesFolder)
             searchForAnagrams()
 
         } else {
@@ -14,7 +19,6 @@ Use:
     groovy src/main/groovy/Anagrammatist <dictionaries folder path>
     
 """
-
         }
     }
 
@@ -34,7 +38,8 @@ Use:
             print query
             String input = console.nextLine()
 
-            println "Longest anagram is ... $input"
+            def longestAnagram = anagramSolver.getLongestAnagram(input)
+            println "Longest anagram is ... $longestAnagram"
         }
     }
 }
