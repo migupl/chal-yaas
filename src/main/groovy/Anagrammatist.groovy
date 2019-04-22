@@ -2,17 +2,24 @@ import chal.yaas.AnagramSolver
 
 class Anagrammatist {
 
+    static final EXIT_ERROR_CODE = 1
+
     static AnagramSolver anagramSolver
 
     static void main(String... args) {
         if (dictionaryFolderIsReceived(args)) {
+            try {
 
-            String dictionariesFolder = args[0]
-            println "Dictionaries folder $dictionariesFolder will be loaded"
+                String dictionariesFolder = args[0]
+                println "Dictionaries folder $dictionariesFolder will be loaded"
 
-            anagramSolver = new AnagramSolver(dictionariesFolder)
-            searchForAnagrams()
+                anagramSolver = new AnagramSolver(dictionariesFolder)
+                searchForAnagrams()
 
+            } catch (_) {
+                println "Error: ${_.message}"
+                System.exit EXIT_ERROR_CODE
+            }
         } else {
             println """
 Use: 
