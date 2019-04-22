@@ -1,6 +1,8 @@
 package chal.yaas.dictionary
 
+import chal.yaas.dictionary.concept.KeyForm
 import chal.yaas.dictionary.concept.Word
+import chal.yaas.exceptions.NoAnagramFoundException
 
 class UnscrambledDictionary implements Dictionary {
 
@@ -50,6 +52,35 @@ class UnscrambledDictionary implements Dictionary {
     @Override
     boolean isEmpty() {
         index.isEmpty()
+    }
+
+    @Override
+    String longestAnagramOf(String s) throws NoAnagramFoundException {
+        def word = new Word(s)
+        def longest = search(index, word.trimmed, word.keyForm)
+        if (longest) {
+            return longest.max { it.length() }
+        }
+
+        throw new NoAnagramFoundException()
+    }
+
+    private List<String> search(CharNode keyChar, String original, KeyForm keyForm) {
+        def chars = keyChar.nextChar.keySet().intersect(keyForm.toList())
+
+        if (chars) {
+            String key = keyForm.toString()
+
+            for (char c in chars) {
+                def keyPos = key.indexOf(c as String)
+                if (0 <= keyPos) {
+                    def longest = search(keyChar.nextChar.get(c), original, new KeyForm(key.substring(keyPos + 1)))
+                    if(longest) return longest
+                }
+            }
+        }
+
+        (keyChar.words.toList() - original) as List<String>
     }
 
     private class CharNode {

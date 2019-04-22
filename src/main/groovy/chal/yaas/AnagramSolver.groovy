@@ -1,9 +1,11 @@
 package chal.yaas
 
+import chal.yaas.dictionary.Dictionary
 import chal.yaas.dictionary.UnscrambledDictionary
 import chal.yaas.dictionary.files.FolderProcess
 import chal.yaas.dictionary.load.DictionaryFolderLoader
 import chal.yaas.exceptions.MinLengthAllowedException
+import chal.yaas.exceptions.NoAnagramFoundException
 
 class AnagramSolver {
 
@@ -23,10 +25,10 @@ class AnagramSolver {
         this.dictionary = dictionary
     }
 
-    String getLongestAnagram(String s) throws MinLengthAllowedException {
+    String getLongestAnagram(String s) throws MinLengthAllowedException, NoAnagramFoundException {
         validate(s)
 
-        ''
+        dictionary.longestAnagramOf(s)
     }
 
     private static def validate(String s) throws MinLengthAllowedException {
