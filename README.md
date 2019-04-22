@@ -12,7 +12,7 @@ The running application reads all the text files from a given directory, as para
 prompt to search for anagrams as for example:
 
 ```bash
-$ groovy src/main/groovy/Anagrammatist <path-to-dictionary-folder>
+$ groovy -cp src/main/groovy:src/main/resources src/main/groovy/Anagrammatist  <path-to-dictionary-folder>
 Dictionary folder dict/words/en/ will be loaded
 Found in 3714 ms
 Use <ctrl> + C to finish

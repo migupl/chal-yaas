@@ -6,6 +6,7 @@ class Anagrammatist {
 
     static void main(String... args) {
         if (dictionaryFolderIsReceived(args)) {
+
             String dictionariesFolder = args[0]
             println "Dictionaries folder $dictionariesFolder will be loaded"
 
@@ -35,11 +36,16 @@ Use:
         ]
 
         while (true) {
-            print query
-            String input = console.nextLine()
+            try {
+                print query
+                String input = console.nextLine()
 
-            def longestAnagram = anagramSolver.getLongestAnagram(input)
-            println "Longest anagram is ... $longestAnagram"
+                def longestAnagram = anagramSolver.getLongestAnagram(input)
+                println "Longest anagram is ... $longestAnagram"
+
+            } catch (_) {
+                println _.message
+            }
         }
     }
 }
