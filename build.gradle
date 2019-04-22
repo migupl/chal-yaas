@@ -13,4 +13,4 @@ dependencies {
     testImplementation 'org.spockframework:spock-core:1.2-groovy-2.5'
 }
 
-mainClassName = 'chal.yaas.App'
+version "0.1"

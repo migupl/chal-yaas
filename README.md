@@ -8,11 +8,11 @@ anagrams in the dictionary used.
 
 A dictionary will be a list of words where a line contains only a word or a sentence.
 
-The running application reads all the text files from a given directory that would work as dictionaries and gives a 
+The running application reads all the text files from a given directory, as parameter, that would work as dictionaries and gives a 
 prompt to search for anagrams as for example:
 
 ```bash
-$ groovy -cp ... 
+$ groovy src/main/groovy/Anagrammatist <path-to-dictionary-folder>
 Dictionary folder dict/words/en/ will be loaded
 Found in 3714 ms
 Use <ctrl> + C to finish
