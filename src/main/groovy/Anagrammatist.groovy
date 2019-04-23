@@ -50,6 +50,9 @@ Use:
                 def longestAnagram = anagramSolver.getLongestAnagram(input)
                 println "Longest anagram is ... $longestAnagram"
 
+                def allAnagrams = anagramSolver.getAllAnagrams(input)
+                println "--- All anagrams at dictionaries\n${allAnagrams.groupBy { it.length() }}"
+
             } catch (_) {
                 println _.message
             }

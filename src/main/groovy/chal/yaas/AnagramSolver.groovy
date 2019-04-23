@@ -27,8 +27,12 @@ class AnagramSolver {
 
     String getLongestAnagram(String s) throws MinLengthAllowedException, NoAnagramFoundException {
         validate(s)
-
         dictionary.longestAnagramOf(s)
+    }
+
+    List<String> getAllAnagrams(String s) throws NoAnagramFoundException {
+        validate(s)
+        dictionary.anagramsOf(s)
     }
 
     private static def validate(String s) throws MinLengthAllowedException {

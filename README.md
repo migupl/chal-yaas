@@ -12,7 +12,7 @@ The running application reads all the text files from a given directory, as para
 prompt to search for anagrams as for example:
 
 ```bash
-$ groovy -cp src/main/groovy:src/main/resources src/main/groovy/Anagrammatist  <path-to-dictionary-folder>
+$ groovy -cp ... <path-to-dictionary-folder>
 Dictionary folder dict/words/en/ will be loaded
 Found in 3714 ms
 Use <ctrl> + C to finish
@@ -42,6 +42,38 @@ OS:           Linux 4.19.32-1-MANJARO amd64
 
 ```
 
+## Running at the project root folder
+
+Run the application executing 
+
+```bash
+[project.path]$ groovy -cp src/main/groovy:src/main/resources src/main/groovy/Anagrammatist <folder path>
+```
+
+The test will be running with 
+
+```bash
+[project.path]$ ./gradlew test
+```
+
+---
+## Fun facts
+
+"Anagrams" itself can be anagrammatized as "Ars magna" (Latin, 'the great art').
+
+English language:
+- [Longest Words in the English Language][3]
+- A word can be composed by only vowels (a, e, i, o, u) as the word [euouae][4]
+- [I found the best anagram in English][5]
+
+Playing dictionaries in [English][6] (275k words), [Spanish][7] (250k words) or [French][8] (210k words).
+
 ---
 [1]: https://en.wikipedia.org/wiki/Anagram
 [2]: https://wordsmith.org/anagram/index.html
+[3]: https://grammar.yourdictionary.com/word-lists/longest-words-in-the-english-language.html
+[4]: https://en.wikipedia.org/wiki/Euouae
+[5]: https://blog.plover.com/lang/anagram-scoring.html
+[6]: https://github.com/zeke/an-array-of-english-words
+[7]: https://github.com/words/an-array-of-spanish-words
+[8]: https://github.com/words/an-array-of-french-words

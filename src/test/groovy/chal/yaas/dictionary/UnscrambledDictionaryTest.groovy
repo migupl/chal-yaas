@@ -108,4 +108,38 @@ class UnscrambledDictionaryTest extends Specification {
         'catalysts'   || 'saltcats'
         'catalyst'    || 'saltcat'
     }
+
+    def "When '#word' has NOT anagrams and all anagrams are requested Then NoAnagramFoundException is expected with message '#expectedMessage'"() {
+        given: "Dictionary is loaded"
+        loadDictionaries(dictionary, '/search/anagrams/no')
+
+        when:
+        dictionary.anagramsOf(word)
+
+        then:
+        def ex = thrown NoAnagramFoundException
+        expectedMessage == ex.message
+
+        where:
+        word = 'say'
+        expectedMessage = getErrorMessage()
+    }
+
+    def "When '#word' has a lot of anagrams into dictionary and all anagrams are requested Then the anagrams's list ('#anagramsExpected') is expected"() {
+        given: "Dictionary is loaded"
+        loadDictionaries(dictionary, '/search/anagrams/multiple')
+
+        expect:
+        !(anagramsExpected - dictionary.anagramsOf(word))
+
+        where:
+        word          || anagramsExpected
+        'cats'        || ['acts', 'cat', 'at']
+        'catalystics' || ['stalactic', 'catalytic', 'catalysis', 'tactical', 'saltcats', 'catalyst', 'stylist',
+                          'saltcat', 'classic', 'tactic', 'static', 'statal', 'atlas', 'scala', 'sails', 'stay',
+                          'list', 'acts', 'tic', 'say', 'cat', 'si', 'la', 'at',]
+        'catalysts'   || ['saltcats', 'catalyst', 'saltcat', 'scala', 'statal', 'atlas', 'acts', 'cat', 'la', 'stay',
+                          'say', 'at']
+        'catalyst'    || ['saltcat', 'scala', 'statal', 'atlas', 'acts', 'cat', 'la', 'stay', 'say', 'at']
+    }
 }

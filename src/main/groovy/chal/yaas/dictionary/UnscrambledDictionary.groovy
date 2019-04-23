@@ -55,6 +55,37 @@ class UnscrambledDictionary implements Dictionary {
     }
 
     @Override
+    List<String> anagramsOf(String s) throws NoAnagramFoundException {
+        def word = new Word(s)
+        def anagrams = search2(index, word.trimmed, word.keyForm) - word.trimmed
+        if (anagrams) {
+            return anagrams
+        }
+
+        throw new NoAnagramFoundException()
+    }
+
+    // TODO: refactor / criteria?
+    private List<String> search2(CharNode keyChar, String original, KeyForm keyForm) {
+        def chars = keyChar.nextChar.keySet().intersect(keyForm.toList())
+
+        def anagrams = []
+        if (chars) {
+            String key = keyForm.toString()
+
+            for (char c in chars) {
+                def keyPos = key.indexOf(c as String)
+                if (0 <= keyPos) {
+                    anagrams << search2(keyChar.nextChar.get(c), original, new KeyForm(key.substring(keyPos + 1)))
+                }
+            }
+        }
+
+        // TODO: remove magic number
+        (anagrams.flatten() + (keyChar.words.grep { it.length() > 1 }.toList())) as List<String>
+    }
+
+    @Override
     String longestAnagramOf(String s) throws NoAnagramFoundException {
         def word = new Word(s)
         def longest = search(index, word.trimmed, word.keyForm)
@@ -65,6 +96,7 @@ class UnscrambledDictionary implements Dictionary {
         throw new NoAnagramFoundException()
     }
 
+    // TODO: refactor / criteria?
     private List<String> search(CharNode keyChar, String original, KeyForm keyForm) {
         def chars = keyChar.nextChar.keySet().intersect(keyForm.toList())
 
