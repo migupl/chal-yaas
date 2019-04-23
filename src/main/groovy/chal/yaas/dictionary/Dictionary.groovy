@@ -9,6 +9,6 @@ interface Dictionary {
 
     boolean isEmpty()
 
-    List<String> anagramsOf(String s) throws NoAnagramFoundException
+    Set<String> anagramsOf(String s) throws NoAnagramFoundException
     String longestAnagramOf(String s) throws NoAnagramFoundException
 }

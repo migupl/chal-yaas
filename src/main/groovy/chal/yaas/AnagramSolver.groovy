@@ -30,7 +30,7 @@ class AnagramSolver {
         dictionary.longestAnagramOf(s)
     }
 
-    List<String> getAllAnagrams(String s) throws NoAnagramFoundException {
+    Set<String> getAllAnagrams(String s) throws NoAnagramFoundException {
         validate(s)
         dictionary.anagramsOf(s)
     }

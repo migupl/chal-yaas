@@ -2,6 +2,9 @@ package chal.yaas.dictionary
 
 import chal.yaas.dictionary.concept.KeyForm
 import chal.yaas.dictionary.concept.Word
+import chal.yaas.dictionary.criteria.AllAnagramsCriteria
+import chal.yaas.dictionary.criteria.LongestAnagramCriteria
+import chal.yaas.dictionary.criteria.SearchingCriteria
 import chal.yaas.exceptions.NoAnagramFoundException
 
 class UnscrambledDictionary implements Dictionary {
@@ -55,9 +58,10 @@ class UnscrambledDictionary implements Dictionary {
     }
 
     @Override
-    List<String> anagramsOf(String s) throws NoAnagramFoundException {
+    Set<String> anagramsOf(String s) throws NoAnagramFoundException {
         def word = new Word(s)
-        def anagrams = search2(index, word.trimmed, word.keyForm) - word.trimmed
+        def criteria = new AllAnagramsCriteria(word)
+        def anagrams = search(word, criteria)
         if (anagrams) {
             return anagrams
         }
@@ -65,54 +69,40 @@ class UnscrambledDictionary implements Dictionary {
         throw new NoAnagramFoundException()
     }
 
-    // TODO: refactor / criteria?
-    private List<String> search2(CharNode keyChar, String original, KeyForm keyForm) {
+    private Set<String> search(Word word, SearchingCriteria criteria) {
+        criteria.clear()
+        deepSearch(index, criteria, word.trimmed, word.keyForm)
+        criteria.candidates
+    }
+
+    private deepSearch(CharNode keyChar, SearchingCriteria criteria, String original, KeyForm keyForm) {
         def chars = keyChar.nextChar.keySet().intersect(keyForm.toList())
 
-        def anagrams = []
         if (chars) {
             String key = keyForm.toString()
 
             for (char c in chars) {
                 def keyPos = key.indexOf(c as String)
                 if (0 <= keyPos) {
-                    anagrams << search2(keyChar.nextChar.get(c), original, new KeyForm(key.substring(keyPos + 1)))
+                    deepSearch(keyChar.nextChar.get(c), criteria, original, new KeyForm(key.substring(keyPos + 1)))
+                    if (!criteria.keepTrying()) break
                 }
             }
         }
 
-        // TODO: remove magic number
-        (anagrams.flatten() + (keyChar.words.grep { it.length() > 1 }.toList())) as List<String>
+        criteria.choose(keyChar.words)
     }
 
     @Override
     String longestAnagramOf(String s) throws NoAnagramFoundException {
         def word = new Word(s)
-        def longest = search(index, word.trimmed, word.keyForm)
-        if (longest) {
-            return longest.max { it.length() }
+        def criteria = new LongestAnagramCriteria(word)
+        def anagrams = search(word, criteria)
+        if (anagrams) {
+            return anagrams[0]
         }
 
         throw new NoAnagramFoundException()
-    }
-
-    // TODO: refactor / criteria?
-    private List<String> search(CharNode keyChar, String original, KeyForm keyForm) {
-        def chars = keyChar.nextChar.keySet().intersect(keyForm.toList())
-
-        if (chars) {
-            String key = keyForm.toString()
-
-            for (char c in chars) {
-                def keyPos = key.indexOf(c as String)
-                if (0 <= keyPos) {
-                    def longest = search(keyChar.nextChar.get(c), original, new KeyForm(key.substring(keyPos + 1)))
-                    if(longest) return longest
-                }
-            }
-        }
-
-        (keyChar.words.toList() - original) as List<String>
     }
 
     private class CharNode {
