@@ -19,7 +19,7 @@ class DictionaryFolderLoader implements DictionaryLoader {
             def lines = dictionaryFile.lines
 
             lines.each { String word ->
-                dictionary.insert(word)
+                dictionary.add(word)
             }
         }
 

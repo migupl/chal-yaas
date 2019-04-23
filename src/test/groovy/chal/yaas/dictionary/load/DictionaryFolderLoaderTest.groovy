@@ -49,7 +49,7 @@ class DictionaryFolderLoaderTest extends Specification {
         new DictionaryFolderLoader(dictionaryFolder).load(dictionary)
 
         then:
-        expectedLines * dictionary.insert(_)
+        expectedLines * dictionary.add(_)
 
         where:
         expectedDictionary = new File(getClass().getResource('/lorem_ipsum.txt').toURI())

@@ -19,7 +19,7 @@ abstract class DictionaryTest extends Specification {
 
     def "Any empty word (#word) is NOT inserted"() {
         when:
-        dictionary.insert(word)
+        dictionary.add(word)
 
         then: "The '#word' does not exists into the Dictionary"
         !dictionary.exists(word)
@@ -33,7 +33,7 @@ abstract class DictionaryTest extends Specification {
 
     def "When '#word' is added Then it can be found"() {
         when:
-        dictionary.insert(word)
+        dictionary.add(word)
 
         then:
         dictionary.exists(word)
@@ -56,7 +56,7 @@ abstract class DictionaryTest extends Specification {
 
     def "When a '#word' is inserted Then Dictionary has trimmed word '#insertedWord'"() {
         when:
-        dictionary.insert(word)
+        dictionary.add(word)
 
         then:
         dictionary.exists(word)

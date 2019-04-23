@@ -12,7 +12,7 @@ class UnscrambledDictionary implements Dictionary {
     private final index = new CharNode()
 
     @Override
-    def insert(String s) {
+    def add(String s) {
         if (s) {
             def word = new Word(s)
             addWord(index, word)

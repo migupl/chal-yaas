@@ -4,7 +4,7 @@ import chal.yaas.exceptions.NoAnagramFoundException
 
 interface Dictionary {
 
-    def insert(String s)
+    def add(String s)
     boolean exists(String s)
 
     boolean isEmpty()
