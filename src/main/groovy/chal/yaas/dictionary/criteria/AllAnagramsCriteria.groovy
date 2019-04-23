@@ -27,7 +27,7 @@ class AllAnagramsCriteria extends SearchingCriteria {
     }
 
     @Override
-    String choose(Set<String> anagrams) {
+    def choose(Set<String> anagrams) {
         candidates.addAll anagrams
     }
 }

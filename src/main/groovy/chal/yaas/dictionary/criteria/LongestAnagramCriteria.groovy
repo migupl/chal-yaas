@@ -26,7 +26,7 @@ class LongestAnagramCriteria extends SearchingCriteria {
     }
 
     @Override
-    String choose(Set<String> anagrams) {
+    def choose(Set<String> anagrams) {
         if (anagrams) {
             def cleanAnagrams = anagrams - word.trimmed
             longest = (cleanAnagrams + longest).max { it.length() }
