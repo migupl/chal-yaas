@@ -29,7 +29,7 @@ class UnscrambledDictionaryTest extends Specification {
         longestExpected = 'Sari Abacha'
     }
 
-    private void loadDictionaries(Dictionary dictionary, fromPath) {
+    private void loadDictionaries(Dictionary dictionary, String fromPath) {
         def path = getClass().getResource(fromPath).path
         def folderProcess = new FolderProcess(path)
 
@@ -88,7 +88,7 @@ class UnscrambledDictionaryTest extends Specification {
         expectedMessage = getErrorMessage()
     }
 
-    private String getErrorMessage() {
+    private static String getErrorMessage() {
         def lang = MessageBundle.locale.language
 
         lang.startsWith('es') ? 'No se han encontrado anagramas en los diccionarios' :

@@ -107,7 +107,7 @@ class UnscrambledDictionary implements Dictionary {
 
     private class CharNode {
 
-        final Set<String> words = []
+        final Set<String> words = [] as Set
         final Map<Character, CharNode> nextChar = [:]
 
         boolean isEmpty() {
