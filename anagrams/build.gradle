@@ -1,0 +1,10 @@
+plugins {
+    id 'groovy'
+    id 'idea'
+}
+
+dependencies {
+    implementation 'org.codehaus.groovy:groovy-all:2.5.4'
+
+    testImplementation 'org.spockframework:spock-core:1.2-groovy-2.5'
+}

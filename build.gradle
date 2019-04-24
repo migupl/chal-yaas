@@ -1,17 +1,9 @@
-plugins {
-    id 'groovy'
-    id 'idea'
-    id 'application'
+allprojects {
+    repositories {
+        jcenter()
+    }
 }
 
-repositories {
-    jcenter()
+subprojects {
+    version = '0.1'
 }
-
-dependencies {
-    implementation 'org.codehaus.groovy:groovy-all:2.5.4'
-
-    testImplementation 'org.spockframework:spock-core:1.2-groovy-2.5'
-}
-
-version "0.1"

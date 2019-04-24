@@ -47,7 +47,7 @@ OS:           Linux 4.19.32-1-MANJARO amd64
 Run the application executing 
 
 ```bash
-[project.path]$ groovy -cp src/main/groovy:src/main/resources src/main/groovy/Anagrammatist <folder path>
+[project.path]$ groovy -cp anagrams/src/main/groovy:anagrams/src/main/resources  app/src/main/groovy/Anagrammatist <folder path>
 ```
 
 The test will be running with 

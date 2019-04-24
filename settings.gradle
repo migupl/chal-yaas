@@ -1,1 +1,4 @@
+include 'anagrams'
+include 'app'
+
 rootProject.name = 'chal-yaas'
