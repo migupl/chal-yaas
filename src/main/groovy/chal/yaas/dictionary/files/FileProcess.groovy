@@ -1,6 +1,6 @@
 package chal.yaas.dictionary.files
 
-import chal.yaas.messages.MessageBundle
+import chal.yaas.exceptions.DictionaryException
 import groovy.transform.EqualsAndHashCode
 
 import java.nio.charset.StandardCharsets
@@ -9,7 +9,6 @@ import java.nio.charset.StandardCharsets
 class FileProcess {
 
     private final File file
-    boolean entirelyRead = false
 
     FileProcess(File file) {
         this.file = file
@@ -19,14 +18,13 @@ class FileProcess {
         file.name
     }
 
-    List<String> getLines() throws IOException {
-        def lines = []
+    List<String> getLines() throws DictionaryException {
+        def lines
         try {
             lines = file.readLines(StandardCharsets.UTF_8.toString())
-            entirelyRead = true
 
         } catch (_) {
-            MessageBundle.getString('load.dictionary.error')
+            throw new DictionaryException(file, _.message)
         }
 
         lines
