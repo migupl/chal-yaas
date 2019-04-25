@@ -1,17 +1,22 @@
 package chal.yaas
 
 import chal.yaas.dictionary.Dictionary
+import chal.yaas.dictionary.DictionarySearchMethod
+import chal.yaas.dictionary.concept.Word
 import chal.yaas.dictionary.files.FolderProcess
 import chal.yaas.dictionary.load.DictionaryFolderLoader
 import chal.yaas.dictionary.unscramble.UnscrambledDictionary
+import chal.yaas.dictionary.unscramble.UnscrambledDictionaryDeepSearchMethod
 import chal.yaas.exceptions.MinLengthAllowedException
 import chal.yaas.exceptions.NoAnagramFoundException
+import chal.yaas.search.AllAnagrams
+import chal.yaas.search.LongestAnagram
+import chal.yaas.search.MinLengthValidation
 
-class AnagramSolver {
-
-    static final byte MIN_LENGTH = 3
+class AnagramSolver implements MinLengthValidation, AllAnagrams, LongestAnagram {
 
     private final Dictionary dictionary
+    private final DictionarySearchMethod searchMethod
 
     AnagramSolver(String dictionariesFolder) {
         def (folder, dictionary) = [
@@ -23,22 +28,25 @@ class AnagramSolver {
         loader.load(dictionary)
 
         this.dictionary = dictionary
+        searchMethod = new UnscrambledDictionaryDeepSearchMethod(dictionary)
     }
 
     String getLongestAnagram(String s) throws MinLengthAllowedException, NoAnagramFoundException {
-        validate(s)
-        dictionary.longestAnagramOf(s)
+        Word word = getValidatedWord(s)
+        longestAnagram(word, searchMethod)
+    }
+
+    private Word getValidatedWord(String s) throws MinLengthValidation {
+        def word = new Word(s)
+        if (isValid(word)) {
+            return word
+        }
+
+        throw new MinLengthAllowedException(MIN_LENGTH)
     }
 
     Set<String> getAllAnagrams(String s) throws MinLengthAllowedException, NoAnagramFoundException {
-        validate(s)
-        dictionary.anagramsOf(s)
-    }
-
-    private static def validate(String s) throws MinLengthAllowedException {
-        def length = s?.trim().length()
-        if (length < MIN_LENGTH) {
-            throw new MinLengthAllowedException(MIN_LENGTH)
-        }
+        Word word = getValidatedWord(s)
+        allAnagrams(word, searchMethod)
     }
 }

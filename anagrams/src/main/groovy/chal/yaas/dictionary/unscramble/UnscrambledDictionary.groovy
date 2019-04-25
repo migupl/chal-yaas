@@ -2,9 +2,6 @@ package chal.yaas.dictionary.unscramble
 
 import chal.yaas.dictionary.Dictionary
 import chal.yaas.dictionary.concept.Word
-import chal.yaas.dictionary.criteria.AllAnagramsCriteria
-import chal.yaas.dictionary.criteria.LongestAnagramCriteria
-import chal.yaas.exceptions.NoAnagramFoundException
 
 class UnscrambledDictionary implements Dictionary {
 
@@ -59,29 +56,5 @@ class UnscrambledDictionary implements Dictionary {
     @Override
     boolean isEmpty() {
         index.isEmpty()
-    }
-
-    @Override
-    Set<String> anagramsOf(String s) throws NoAnagramFoundException {
-        def word = new Word(s)
-        def criteria = new AllAnagramsCriteria(word)
-        def anagrams = search.search(word, criteria)
-        if (anagrams) {
-            return anagrams
-        }
-
-        throw new NoAnagramFoundException()
-    }
-
-    @Override
-    String longestAnagramOf(String s) throws NoAnagramFoundException {
-        def word = new Word(s)
-        def criteria = new LongestAnagramCriteria(word)
-        def anagrams = search.search(word, criteria)
-        if (anagrams) {
-            return anagrams[0]
-        }
-
-        throw new NoAnagramFoundException()
     }
 }

@@ -16,10 +16,6 @@ class KeyForm {
         chars.join()
     }
 
-    int length() {
-        chars.size()
-    }
-
     List<Character> toList() {
         chars.toList()
     }

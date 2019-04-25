@@ -1,16 +1,19 @@
 package chal.yaas.dictionary.unscramble
 
 import chal.yaas.dictionary.Dictionary
+import chal.yaas.dictionary.concept.Word
 import chal.yaas.dictionary.files.FileProcess
 import chal.yaas.dictionary.files.FolderProcess
 import chal.yaas.dictionary.load.DictionaryFolderLoader
 import chal.yaas.exceptions.NoAnagramFoundException
 import chal.yaas.messages.MessageBundle
+import chal.yaas.search.AllAnagrams
+import chal.yaas.search.LongestAnagram
 import spock.lang.Specification
 import spock.lang.Unroll
 
 @Unroll
-class UnscrambledDictionaryTest extends Specification {
+class AnagramsSearchTest extends Specification {
 
     Dictionary dictionary
 
@@ -21,12 +24,18 @@ class UnscrambledDictionaryTest extends Specification {
     def "When there are anagrams with same normal form than '#word' Then the longest ('#longestExpected') is expected"() {
         given: "Dictionary is loaded"
         loadDictionaries(dictionary, '/search/anagrams/paired/same_length')
+        
+        and: "Search method is defined"
+        def searchMethod = new UnscrambledDictionaryDeepSearchMethod(dictionary)
+        
+        and: "Class uses trait 'longestAnagram'"
+        def search = new AnagramsSearch()
 
         expect:
-        longestExpected == dictionary.longestAnagramOf(word)
+        longestExpected == search.longestAnagram(word, searchMethod)
 
         where:
-        word = 'Aabacharis'
+        word = new Word('Aabacharis')
         longestExpected = 'Sari Abacha'
     }
 
@@ -41,11 +50,17 @@ class UnscrambledDictionaryTest extends Specification {
         given: "Dictionary is loaded"
         loadDictionaries(dictionary, '/search/anagrams/paired/same_length/no')
 
+        and: "Search method is defined"
+        def searchMethod = new UnscrambledDictionaryDeepSearchMethod(dictionary)
+
+        and: "Class uses trait 'longestAnagram'"
+        def search = new AnagramsSearch()
+
         expect:
-        longestExpected == dictionary.longestAnagramOf(word)
+        longestExpected == search.longestAnagram(word, searchMethod)
 
         where:
-        word = 'Aabacharis'
+        word = new Word('Aabacharis')
         longestExpected = 'ABRACHIAS'
     }
 
@@ -53,13 +68,19 @@ class UnscrambledDictionaryTest extends Specification {
         given: "Dictionary is loaded"
         loadDictionaries(dictionary, words.dictionaryFolder)
 
+        and: "Search method is defined"
+        def searchMethod = new UnscrambledDictionaryDeepSearchMethod(dictionary)
+
+        and: "Class uses trait 'longestAnagram'"
+        def search = new AnagramsSearch()
+
         expect:
-        longestExpected == dictionary.longestAnagramOf(word)
+        longestExpected == search.longestAnagram(word, searchMethod)
 
         where:
         words << nonEnglishWords
 
-        word = "${words.word} ${words.word}"
+        word = new Word("${words.word} ${words.word}")
         longestExpected = words.word
     }
 
@@ -76,16 +97,22 @@ class UnscrambledDictionaryTest extends Specification {
     def "When '#word' has NOT anagrams and longest anagrams is requested Then NoAnagramFoundException is expected with message '#expectedMessage'"() {
         given: "Dictionary is loaded"
         loadDictionaries(dictionary, '/search/anagrams/no')
+        
+        and: "Search method is defined"
+        def searchMethod = new UnscrambledDictionaryDeepSearchMethod(dictionary)
+
+        and: "Class uses trait 'longestAnagram'"
+        def search = new AnagramsSearch()
 
         when:
-        dictionary.longestAnagramOf(word)
+        search.longestAnagram(word, searchMethod)
 
         then:
         def ex = thrown NoAnagramFoundException
         expectedMessage == ex.message
 
         where:
-        word = 'any word'
+        word = new Word('any word')
         expectedMessage = getErrorMessage()
     }
 
@@ -100,29 +127,41 @@ class UnscrambledDictionaryTest extends Specification {
         given: "Dictionary is loaded"
         loadDictionaries(dictionary, '/search/anagrams/multiple')
 
+        and: "Search method is defined"
+        def searchMethod = new UnscrambledDictionaryDeepSearchMethod(dictionary)
+
+        and: "Class uses trait 'longestAnagram'"
+        def search = new AnagramsSearch()
+
         expect:
-        longestExpected == dictionary.longestAnagramOf(word)
+        longestExpected == search.longestAnagram(word, searchMethod)
 
         where:
-        word          || longestExpected
-        'catalystics' || 'stalactic'
-        'catalysts'   || 'saltcats'
-        'catalyst'    || 'saltcat'
+        word                    || longestExpected
+        new Word('catalystics') || 'stalactic'
+        new Word('catalysts')   || 'saltcats'
+        new Word('catalyst')    || 'saltcat'
     }
 
     def "When '#word' has NOT anagrams and all anagrams are requested Then NoAnagramFoundException is expected with message '#expectedMessage'"() {
         given: "Dictionary is loaded"
         loadDictionaries(dictionary, '/search/anagrams/no')
 
+        and: "Search method is defined"
+        def searchMethod = new UnscrambledDictionaryDeepSearchMethod(dictionary)
+
+        and: "Class uses trait 'allAnagrams'"
+        def search = new AnagramsSearch()
+
         when:
-        dictionary.anagramsOf(word)
+        search.allAnagrams(word, searchMethod)
 
         then:
         def ex = thrown NoAnagramFoundException
         expectedMessage == ex.message
 
         where:
-        word = 'say'
+        word = new Word('say')
         expectedMessage = getErrorMessage()
     }
 
@@ -130,17 +169,25 @@ class UnscrambledDictionaryTest extends Specification {
         given: "Dictionary is loaded"
         loadDictionaries(dictionary, '/search/anagrams/multiple')
 
+        and: "Search method is defined"
+        def searchMethod = new UnscrambledDictionaryDeepSearchMethod(dictionary)
+
+        and: "Class uses trait 'allAnagrams'"
+        def search = new AnagramsSearch()
+
         expect:
-        !(anagramsExpected - dictionary.anagramsOf(word))
+        !(anagramsExpected - search.allAnagrams(word, searchMethod))
 
         where:
-        word          || anagramsExpected
-        'cats'        || ['acts', 'cat', 'at']
-        'catalystics' || ['stalactic', 'catalytic', 'catalysis', 'tactical', 'saltcats', 'catalyst', 'stylist',
-                          'saltcat', 'classic', 'tactic', 'static', 'statal', 'atlas', 'scala', 'sails', 'stay',
-                          'list', 'acts', 'tic', 'say', 'cat', 'si', 'la', 'at',]
-        'catalysts'   || ['saltcats', 'catalyst', 'saltcat', 'scala', 'statal', 'atlas', 'acts', 'cat', 'la', 'stay',
-                          'say', 'at']
-        'catalyst'    || ['saltcat', 'scala', 'statal', 'atlas', 'acts', 'cat', 'la', 'stay', 'say', 'at']
+        word                    || anagramsExpected
+        new Word('cats')        || ['acts', 'cat', 'at']
+        new Word('catalystics') || ['stalactic', 'catalytic', 'catalysis', 'tactical', 'saltcats', 'catalyst', 'stylist',
+                                    'saltcat', 'classic', 'tactic', 'static', 'statal', 'atlas', 'scala', 'sails', 'stay',
+                                    'list', 'acts', 'tic', 'say', 'cat', 'si', 'la', 'at',]
+        new Word('catalysts')   || ['saltcats', 'catalyst', 'saltcat', 'scala', 'statal', 'atlas', 'acts', 'cat', 'la', 'stay',
+                                    'say', 'at']
+        new Word('catalyst')    || ['saltcat', 'scala', 'statal', 'atlas', 'acts', 'cat', 'la', 'stay', 'say', 'at']
     }
+    
+    private class AnagramsSearch implements AllAnagrams, LongestAnagram {}
 }
