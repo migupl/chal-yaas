@@ -9,6 +9,7 @@ abstract class SearchingCriteria {
 
     SearchingCriteria(Word word) {
         this.word = word
+        clear()
     }
 
     abstract clear()

@@ -8,7 +8,6 @@ class AllAnagramsCriteria extends SearchingCriteria {
 
     AllAnagramsCriteria(Word word) {
         super(word)
-        clear()
     }
 
     @Override

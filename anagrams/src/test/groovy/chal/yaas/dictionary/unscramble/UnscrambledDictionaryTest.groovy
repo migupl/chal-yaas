@@ -1,5 +1,6 @@
-package chal.yaas.dictionary
+package chal.yaas.dictionary.unscramble
 
+import chal.yaas.dictionary.Dictionary
 import chal.yaas.dictionary.files.FileProcess
 import chal.yaas.dictionary.files.FolderProcess
 import chal.yaas.dictionary.load.DictionaryFolderLoader

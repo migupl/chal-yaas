@@ -4,7 +4,7 @@ import chal.yaas.dictionary.concept.Word
 
 class LongestAnagramCriteria extends SearchingCriteria {
 
-    private String longest = ''
+    private String longest
 
     LongestAnagramCriteria(Word word) {
         super(word)

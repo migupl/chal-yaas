@@ -10,10 +10,6 @@ class Word {
         keyForm = new KeyForm(trimmed)
     }
 
-    List<Character> getChars() {
-        keyForm.toList()
-    }
-
     String asKey() {
         keyForm as String
     }

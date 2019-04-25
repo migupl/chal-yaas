@@ -1,7 +1,7 @@
 package chal.yaas.dictionary.load
 
 import chal.yaas.dictionary.Dictionary
-import chal.yaas.dictionary.UnscrambledDictionary
+import chal.yaas.dictionary.unscramble.UnscrambledDictionary
 import chal.yaas.dictionary.files.FileProcess
 import chal.yaas.dictionary.files.FolderProcess
 import chal.yaas.exceptions.DictionaryEmptyException

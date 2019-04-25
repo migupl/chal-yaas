@@ -1,9 +1,9 @@
 package chal.yaas
 
 import chal.yaas.dictionary.Dictionary
-import chal.yaas.dictionary.UnscrambledDictionary
 import chal.yaas.dictionary.files.FolderProcess
 import chal.yaas.dictionary.load.DictionaryFolderLoader
+import chal.yaas.dictionary.unscramble.UnscrambledDictionary
 import chal.yaas.exceptions.MinLengthAllowedException
 import chal.yaas.exceptions.NoAnagramFoundException
 
@@ -30,7 +30,7 @@ class AnagramSolver {
         dictionary.longestAnagramOf(s)
     }
 
-    Set<String> getAllAnagrams(String s) throws NoAnagramFoundException {
+    Set<String> getAllAnagrams(String s) throws MinLengthAllowedException, NoAnagramFoundException {
         validate(s)
         dictionary.anagramsOf(s)
     }
