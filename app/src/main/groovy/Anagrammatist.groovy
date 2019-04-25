@@ -51,11 +51,34 @@ Use:
                 println "Longest anagram is ... $longestAnagram"
 
                 def allAnagrams = anagramSolver.getAllAnagrams(input)
-                println "--- All anagrams at dictionaries\n${allAnagrams.groupBy { it.length() }}"
+                prettyPrint input.length(), allAnagrams
 
+                def a = [:]
+                a.take(2)
             } catch (_) {
                 println _.message
             }
+        }
+    }
+
+    static def prettyPrint(int originalLenght, Set<String> anagrams) {
+        def groupByLength = anagrams.groupBy { it.length() }
+        if (originalLenght < 8) {
+            println "--- ${anagrams.size()} anagrams found at dictionaries are:"
+            printMap groupByLength
+
+        } else {
+            println "--- Some of the ${anagrams.size()} anagrams found at dictionaries are:"
+            printMap groupByLength.take(2)
+        }
+
+        println ''
+    }
+
+    static def printMap(Map<Integer, List<String>> listMap) {
+        listMap.each {
+            def count = it.value.size()
+            println "-- $count of length ${it.key}  ${it.value.take(10).join(', ')} ${count > 10 ? '...' : ''}"
         }
     }
 }
