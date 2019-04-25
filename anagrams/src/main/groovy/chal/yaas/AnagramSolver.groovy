@@ -1,6 +1,5 @@
 package chal.yaas
 
-import chal.yaas.dictionary.Dictionary
 import chal.yaas.dictionary.DictionarySearchMethod
 import chal.yaas.dictionary.concept.Word
 import chal.yaas.dictionary.files.FolderProcess
@@ -15,7 +14,6 @@ import chal.yaas.search.MinLengthValidation
 
 class AnagramSolver implements MinLengthValidation, AllAnagrams, LongestAnagram {
 
-    private final Dictionary dictionary
     private final DictionarySearchMethod searchMethod
 
     AnagramSolver(String dictionariesFolder) {
@@ -27,7 +25,6 @@ class AnagramSolver implements MinLengthValidation, AllAnagrams, LongestAnagram 
         def loader = new DictionaryFolderLoader(folder)
         loader.load(dictionary)
 
-        this.dictionary = dictionary
         searchMethod = new UnscrambledDictionaryDeepSearchMethod(dictionary)
     }
 
