@@ -14,9 +14,8 @@ prompt to search for anagrams as for example:
 ```bash
 $ groovy -cp ... <path-to-dictionary-folder>
 Dictionary folder dict/words/en/ will be loaded
-Found in 3714 ms
 Use <ctrl> + C to finish
-* Write a word for searching anagrams: aa
+* Write a word for searching anagrams: ...
 ```
 
 ## Environment
@@ -59,7 +58,7 @@ Run the application executing
 or 
 
 ```bash
-$groovy -cp anagrams/build/libs/anagrams-solver-0.1.jar app/src/main/groovy/Anagrammatist <dictionaries folder path>
+[project.path]$ groovy -cp anagrams/build/libs/anagrams-solver-0.1.jar app/src/main/groovy/Anagrammatist <dictionaries folder path>
 ```
 
 when project was build.
