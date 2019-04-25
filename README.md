@@ -44,17 +44,25 @@ OS:           Linux 4.19.32-1-MANJARO amd64
 
 ## Running at the project root folder
 
-Run the application executing 
-
-```bash
-[project.path]$ groovy -cp anagrams/src/main/groovy:anagrams/src/main/resources  app/src/main/groovy/Anagrammatist <folder path>
-```
-
 The test will be running with 
 
 ```bash
 [project.path]$ ./gradlew test
 ```
+
+Run the application executing 
+
+```bash
+[project.path]$ groovy -cp anagrams/src/main/groovy:anagrams/src/main/resources app/src/main/groovy/Anagrammatist <dictionaries folder path>
+```
+
+or 
+
+```bash
+$groovy -cp anagrams/build/libs/anagrams-solver-0.1.jar app/src/main/groovy/Anagrammatist <dictionaries folder path>
+```
+
+when project was build.
 
 ---
 ## Fun facts
