@@ -1,6 +1,6 @@
 package chal.yaas.dictionary.files
 
-
+import chal.yaas.exceptions.DictionaryException
 import chal.yaas.messages.MessageBundle
 import groovy.io.FileType
 
@@ -26,7 +26,7 @@ class FolderProcess {
         dictionariesFolder.name
     }
 
-    List<FileProcess> getDictionaries() {
+    List<FileProcess> getDictionaries() throws DictionaryException {
         def files = []
         dictionariesFolder.eachFile(FileType.FILES) { File file ->
             files << new FileProcess(file)

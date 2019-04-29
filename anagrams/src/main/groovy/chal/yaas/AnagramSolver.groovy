@@ -6,6 +6,8 @@ import chal.yaas.dictionary.files.FolderProcess
 import chal.yaas.dictionary.load.DictionaryFolderLoader
 import chal.yaas.dictionary.unscramble.UnscrambledDictionary
 import chal.yaas.dictionary.unscramble.UnscrambledDictionaryDeepSearchMethod
+import chal.yaas.exceptions.DictionaryEmptyException
+import chal.yaas.exceptions.DictionaryException
 import chal.yaas.exceptions.MinLengthAllowedException
 import chal.yaas.exceptions.NoAnagramFoundException
 import chal.yaas.search.AllAnagrams
@@ -16,7 +18,7 @@ class AnagramSolver implements MinLengthValidation, AllAnagrams, LongestAnagram 
 
     private final DictionarySearchMethod searchMethod
 
-    AnagramSolver(String dictionariesFolder) {
+    AnagramSolver(String dictionariesFolder) throws DictionaryException, DictionaryEmptyException {
         def (folder, dictionary) = [
                 new FolderProcess(dictionariesFolder),
                 new UnscrambledDictionary()

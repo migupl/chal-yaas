@@ -4,6 +4,7 @@ import chal.yaas.dictionary.Dictionary
 import chal.yaas.dictionary.files.FileProcess
 import chal.yaas.dictionary.files.FolderProcess
 import chal.yaas.exceptions.DictionaryEmptyException
+import chal.yaas.exceptions.DictionaryException
 
 class DictionaryFolderLoader implements DictionaryLoader {
 
@@ -14,7 +15,7 @@ class DictionaryFolderLoader implements DictionaryLoader {
     }
 
     @Override
-    def load(Dictionary dictionary) {
+    def load(Dictionary dictionary) throws DictionaryException, DictionaryEmptyException {
         folder.dictionaries.each { FileProcess dictionaryFile ->
             def lines = dictionaryFile.lines
 
