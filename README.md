@@ -52,16 +52,14 @@ The test will be running with
 Run the application executing 
 
 ```bash
-[project.path]$ groovy -cp anagrams/src/main/groovy:anagrams/src/main/resources app/src/main/groovy/Anagrammatist <dictionaries folder path>
+[project.path]$ groovy -cp libs/anagrams-solver-0.1.jar app/src/main/groovy/Anagrammatist <dictionaries folder path>
 ```
 
-or 
+when 'anagrams' subproject jar was generated.
 
 ```bash
-[project.path]$ groovy -cp anagrams/build/libs/anagrams-solver-0.1.jar app/src/main/groovy/Anagrammatist <dictionaries folder path>
+[project.path]$ ./gradlew anagrams:jar
 ```
-
-when project was build.
 
 ---
 ## Fun facts
