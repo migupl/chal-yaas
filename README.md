@@ -61,6 +61,22 @@ when 'anagrams' subproject jar was generated.
 [project.path]$ ./gradlew anagrams:jar
 ```
 
+## Anagrammatist command line application
+
+### Installation
+
+Unpack the ZIP or TAR file in a suitable location
+
+### Usage
+
+```bash
+$ cd anagrammatist-0.1
+$ ./bin/anagrammatist <dictionary folder>
+Dictionaries folder <dictionary folder> will be loaded
+Use <ctrl> + C to finish
+* Write a word for searching anagrams: anagrams
+```
+
 ---
 ## Fun facts
 
