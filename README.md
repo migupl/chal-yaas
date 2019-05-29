@@ -77,6 +77,58 @@ Use <ctrl> + C to finish
 * Write a word for searching anagrams: anagrams
 ```
 
+## Kotlin server
+ 
+ A minimal Kotlin Spring Boot server
+ 
+ Server would be running with
+ 
+ ```bash
+ [project.path]$ ./gradlew server:bootRun
+> Task :server:compileKotlin
+> Task :server:compileJava NO-SOURCE
+> Task :server:processResources UP-TO-DATE
+> Task :server:classes UP-TO-DATE
+
+> Task :server:bootRun
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.5.RELEASE)
+
+2019-05-29 18:00:08.382  INFO 26363 --- [           main] poc.anagrams.ApplicationKt               : Starting ApplicationKt on spectre with PID 26363 (/home/migupl/Develop/github.com/chal-yaas/server/build/classes/kotlin/main started by migupl in /home/migupl/Develop/github.com/chal-yaas/server)
+2019-05-29 18:00:08.390  INFO 26363 --- [           main] poc.anagrams.ApplicationKt               : No active profile set, falling back to default profiles: default
+2019-05-29 18:00:08.901  WARN 26363 --- [kground-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2019-05-29 18:00:10.570  WARN 26363 --- [           main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2019-05-29 18:00:10.614  INFO 26363 --- [           main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2019-05-29 18:00:10.615  INFO 26363 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2013 ms
+2019-05-29 18:00:11.539  INFO 26363 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-05-29 18:00:11.943  INFO 26363 --- [           main] org.xnio                                 : XNIO version 3.3.8.Final
+2019-05-29 18:00:11.960  INFO 26363 --- [           main] org.xnio.nio                             : XNIO NIO Implementation Version 3.3.8.Final
+2019-05-29 18:00:12.210  INFO 26363 --- [           main] o.s.b.w.e.u.UndertowServletWebServer     : Undertow started on port(s) 8080 (http) with context path ''
+2019-05-29 18:00:12.214  INFO 26363 --- [           main] poc.anagrams.ApplicationKt               : Started ApplicationKt in 4.735 seconds (JVM running for 5.506)
+2019-05-29 18:00:33.845  INFO 26363 --- [  XNIO-1 task-1] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-05-29 18:00:33.845  INFO 26363 --- [  XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-05-29 18:00:33.849  INFO 26363 --- [  XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+```
+ 
+ Test /hello endpoint with curl
+ 
+ ```bash
+ [project.path]$ curl -i -H "Accept: application/json" http://localhost:8080/hello
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json;charset=UTF-8
+Content-Length: 14
+
+Hello World!!!
+ ```
+ 
+
 ---
 ## Fun facts
 
