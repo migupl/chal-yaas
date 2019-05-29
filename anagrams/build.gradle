@@ -11,7 +11,6 @@ dependencies {
 
 jar {
     archiveBaseName = 'anagrams-solver'
-    destinationDir = project.file('../libs')
 
     manifest {
         attributes([
