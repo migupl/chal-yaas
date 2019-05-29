@@ -18,6 +18,7 @@ class FolderProcessTest extends Specification {
         where:
         folderName << [
                 'must_no_exist',
+                'folder/does/not/exists',
                 getClass().getResource('/lorem_ipsum.txt').toURI() as String
         ]
 
@@ -25,13 +26,10 @@ class FolderProcessTest extends Specification {
     }
 
     private static String getErrorMessage(String folderName) {
-        def (lang, folder) = [
-                MessageBundle.locale.language,
-                new File(folderName)
-        ]
+        def lang = MessageBundle.locale.language
 
-        lang.startsWith('es') ? "-${folder.name}- debe ser un folder que exista" :
-                "-${folder.name}- must be an existing folder"
+        lang.startsWith('es') ? "-${folderName}- debe ser un folder que exista" :
+                "-${folderName}- must be an existing folder"
     }
 
     def "When FolderProcess(#expectedFile.parent) is called Then any sub folders are NOT loaded"() {
