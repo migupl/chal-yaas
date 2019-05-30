@@ -35,6 +35,8 @@ class AnagramSolverService(
         return byLength
     }
 
+    fun language(): Language = Language(dictionaryConfig.language)
+
     @EventListener
     fun onApplicationEvent(event: ApplicationStartedEvent?) {
         GlobalScope.launch {
@@ -52,3 +54,4 @@ class AnagramSolverService(
 }
 
 data class Anagrams(val length: Int, val words: List<String>)
+data class Language(val language: String)

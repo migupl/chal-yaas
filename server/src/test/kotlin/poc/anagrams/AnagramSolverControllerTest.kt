@@ -41,7 +41,22 @@ class AnagramSolverControllerTest {
                 Anagrams(2, listOf("he"))
         )
 
-        given_a_word_whenAnagrams_thenReturnListOfAnagrams("hello", expectedList)
+        given_a_word_whenAnagrams_thenReturnListOfAnagrams("/anagrams/hello", expectedList)
+    }
+
+    private fun given_a_word_whenAnagrams_thenReturnListOfAnagrams(requestPath: String, expected: Any) {
+        // when
+        val response: MockHttpServletResponse = mvc!!.
+                perform(MockMvcRequestBuilders.get(requestPath).accept(MediaType.APPLICATION_JSON)).
+                andReturn().
+                response
+
+        // then
+        assertThat(response.getStatus()).
+                isEqualTo(HttpStatus.OK.value())
+
+        assertThat(response.getContentAsString()).
+                isEqualTo(json.write(expected).json)
     }
 
     @Test
@@ -51,27 +66,20 @@ class AnagramSolverControllerTest {
                 Anagrams(3, listOf("egg"))
         )
 
-        given_a_word_whenAnagrams_thenReturnListOfAnagrams("eggs", expectedList)
+        given_a_word_whenAnagrams_thenReturnListOfAnagrams("/anagrams/eggs", expectedList)
     }
 
     @Test
     @Throws(Exception::class)
     fun givenNoneWord_whenAnagrams_thenReturnEmptyList() {
-        given_a_word_whenAnagrams_thenReturnListOfAnagrams("None")
+        given_a_word_whenAnagrams_thenReturnListOfAnagrams("/anagrams/None", emptyList<Anagrams>())
     }
 
-    private fun given_a_word_whenAnagrams_thenReturnListOfAnagrams(word: String, expectedList: List<Anagrams> = emptyList<Anagrams>()) {
-        // when
-        val response: MockHttpServletResponse = mvc!!.
-                perform(MockMvcRequestBuilders.get("/anagrams/$word").accept(MediaType.APPLICATION_JSON)).
-                andReturn().
-                response
+    @Test
+    @Throws(Exception::class)
+    fun whenLanguage_thenReturnLanguageEn() {
+        val expectedList = Language("en")
 
-        // then
-        assertThat(response.getStatus()).
-                isEqualTo(HttpStatus.OK.value())
-
-        assertThat(response.getContentAsString()).
-                isEqualTo(json.write(expectedList).json)
+        given_a_word_whenAnagrams_thenReturnListOfAnagrams("/language", expectedList)
     }
 }

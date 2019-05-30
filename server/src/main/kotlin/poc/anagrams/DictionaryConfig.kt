@@ -13,5 +13,8 @@ import javax.validation.constraints.NotBlank
 class DictionaryConfig {
 
     @NotBlank
+    lateinit var language: String
+
+    @NotBlank
     lateinit var folder: String
 }
