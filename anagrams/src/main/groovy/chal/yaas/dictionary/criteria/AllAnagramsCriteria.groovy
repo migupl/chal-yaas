@@ -17,7 +17,7 @@ class AllAnagramsCriteria extends SearchingCriteria {
 
     @Override
     Set<String> getCandidates() {
-        candidates.unique() - word.trimmed
+        remove(candidates.unique(), word.trimmed)
     }
 
     @Override

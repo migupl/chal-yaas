@@ -17,4 +17,8 @@ abstract class SearchingCriteria {
     abstract boolean keepTrying()
 
     abstract Set<String> getCandidates()
+
+    static Set<String> remove(Set<String> stringSet, String s) {
+        stringSet - stringSet.findAll { s.equalsIgnoreCase(it) }
+    }
 }

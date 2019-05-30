@@ -35,7 +35,7 @@ class AnagramsSearchTest extends Specification {
         longestExpected == search.longestAnagram(word, searchMethod)
 
         where:
-        word = new Word('Aabacharis')
+        word = new Word('aabacharis')
         longestExpected = 'Sari Abacha'
     }
 
@@ -60,7 +60,7 @@ class AnagramsSearchTest extends Specification {
         longestExpected == search.longestAnagram(word, searchMethod)
 
         where:
-        word = new Word('Aabacharis')
+        word = new Word('aabacharis')
         longestExpected = 'ABRACHIAS'
     }
 
