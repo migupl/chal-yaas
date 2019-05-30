@@ -1,4 +1,4 @@
-# Anagrams solver
+# Anagrams solver with clients
 
 An [anagram][1] is a word or sentence that can be rearranged to create another one, like **parliament** can be 
 turn to **partial men**, or **Clint Eastwood** can turn into **Old West Action** ([Internet Anagram Server][2])

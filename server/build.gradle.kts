@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.1.5.RELEASE"
 	id("io.spring.dependency-management") version "1.0.7.RELEASE"
-	kotlin("jvm") version "1.2.71"
-	kotlin("plugin.spring") version "1.2.71"
+	kotlin("jvm") version "1.3.20"
+	kotlin("plugin.spring") version "1.3.20"
 
 	idea
 }
@@ -22,6 +22,10 @@ dependencies {
 
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    compile(project(":anagrams"))
+    compile("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1")
+    compile("org.codehaus.groovy:groovy-all:2.5.4")
 
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
