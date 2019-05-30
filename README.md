@@ -139,7 +139,8 @@ English language:
 - A word can be composed by only vowels (a, e, i, o, u) as the word [euouae][4]
 - [I found the best anagram in English][5]
 
-Playing dictionaries in [English][6] (275k words), [Spanish][7] (250k words) or [French][8] (210k words).
+Playing with dictionaries of [English][6] (275k words), [Spanish][7] (250k words) or [French][8] (210k words) ... 
+or [Wordnet][9] database ([MIT license][10] [citation][11])
 
 ---
 [1]: https://en.wikipedia.org/wiki/Anagram
@@ -150,3 +151,6 @@ Playing dictionaries in [English][6] (275k words), [Spanish][7] (250k words) or 
 [6]: https://github.com/zeke/an-array-of-english-words
 [7]: https://github.com/words/an-array-of-spanish-words
 [8]: https://github.com/words/an-array-of-french-words
+[9]: https://wordnet.princeton.edu/download/current-version
+[10]: https://wordnet.princeton.edu/license-and-commercial-use
+[11]: https://wordnet.princeton.edu/citing-wordnet
