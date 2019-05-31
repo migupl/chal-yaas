@@ -28,6 +28,7 @@ class AnagramSolverService(
                 filter {
                     it.key >= minLength
                 }.
+                toSortedMap(compareByDescending { it }).
                 map { (length, words) ->
                     Anagrams(length, words)
                 }
