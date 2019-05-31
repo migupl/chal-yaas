@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
 	id("org.springframework.boot") version "2.1.5.RELEASE"
@@ -45,3 +46,9 @@ tasks.withType<KotlinCompile> {
 		jvmTarget = "1.8"
 	}
 }
+
+tasks.getByName<BootJar>("bootJar") {
+	exclude("application.yml")
+	exclude("wordnet")
+}
+

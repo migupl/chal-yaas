@@ -79,9 +79,9 @@ Use <ctrl> + C to finish
 
 ## Kotlin server
  
- A minimal Kotlin Spring Boot server
- 
- Server would be running with
+A minimal Kotlin Spring Boot server
+
+Server would be running with
  
  ```bash
  [project.path]$ ./gradlew server:bootRun
@@ -116,18 +116,94 @@ Use <ctrl> + C to finish
 2019-05-29 18:00:33.849  INFO 26363 --- [  XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
 ```
  
- Test /hello endpoint with curl
+Test /language endpoint with curl
  
- ```bash
- [project.path]$ curl -i -H "Accept: application/json" http://localhost:8080/hello
+```bash
+[project.path]$ curl -i -H "Accept: application/json" http://localhost:8080/language
 HTTP/1.1 200 OK
 Connection: keep-alive
+Transfer-Encoding: chunked
 Content-Type: application/json;charset=UTF-8
-Content-Length: 14
+Date: Thu, 30 May 2019 16:04:07 GMT
 
-Hello World!!!
- ```
- 
+{"language":"en"}
+```
+
+### Docker image
+
+You can create a Docker image without dictionary info executing
+```bash
+[project.path]$ ./gradlew server:bootJar
+> Task :anagrams:compileJava NO-SOURCE
+> Task :anagrams:compileGroovy UP-TO-DATE
+> Task :anagrams:processResources UP-TO-DATE
+> Task :anagrams:classes UP-TO-DATE
+> Task :anagrams:jar
+> Task :server:compileKotlin
+> Task :server:compileJava NO-SOURCE
+> Task :server:processResources UP-TO-DATE
+> Task :server:classes UP-TO-DATE
+> Task :server:bootJar
+
+BUILD SUCCESSFUL in 5s
+6 actionable tasks: 3 executed, 3 up-to-date
+[project.path]$
+[project.path]$ sudo docker build -t anagrams_server server/.
+STEP 1: FROM openjdk:8-jdk-alpine
+STEP 2: WORKDIR /app
+--> Using cache 85ababea2157867a78bd970dca91bd88d1ada3df62eedbb91c018985eff35377
+STEP 3: COPY build/libs/*.jar server.jar
+--> dcf6577ea6f09a819af26ca0e7e45b0006c5d4f3472ea3fe8ee85de009ddbc3d
+STEP 4: RUN unzip server.jar && rm server.jar
+...
+[project.path]$ 
+```
+
+Now, you can use any dictionary at running container as by example with Wordnet dictionary
+```bash
+[project.path]$ sudo docker run -it -p 8080:8080 -v $(pwd)/server/src/main/resources/wordnet:/app/wordnet -v $(pwd)/server/src/main/resources/application.yml:/app/application.yml anagrams_server
+```
+
+and using curl you can request by example
+```bash
+[project.path]$ curl -i -H "Accept: application/json" http://localhost:8080/anagrams/example
+HTTP/1.1 200 OK
+Connection: keep-alive
+Transfer-Encoding: chunked
+Content-Type: application/json;charset=UTF-8
+Date: Fri, 31 May 2019 08:22:50 GMT
+
+[{"length":5,"words":["Eelam","ample","maple","expel"]},{"length":4,"words":["alee","male","Elam","lame","meal","pale","leap","peal","plea","axle","apex","lamp","palm","peel"]},{"length":3,"words":["ale","lea","ape","pea","axe","alp","lap","pal","lax","map","pax","eel","lee","elm"]},{"length":2,"words":["Ea","la","ma","ax","em","pe","LP"]}]
+```
+
+Use other dictionary as used in tests
+```bash
+[project.path]$ sudo docker run -it -p 8080:8080 -v $(pwd)/server/src/test/resources/dict:/app/dict -v $(pwd)/server/src/test/resources/application.yml:/app/application.yml anagrams_server
+```
+
+and doing the same request with curl
+```bash
+[project.path]$ curl -i -H "Accept: application/json" http://localhost:8080/anagrams/example
+HTTP/1.1 200 OK
+Connection: keep-alive
+Transfer-Encoding: chunked
+Content-Type: application/json;charset=UTF-8
+Date: Fri, 31 May 2019 08:28:28 GMT
+
+[]
+```
+
+gets empty response because the dictionary only contains a few words.
+
+The important things are the volume definition (config and dictionary path) at instance start. 
+You have to define:
+- **application.yml**, defines path to dictionary and language of this
+- **<folder>**, dictionary folder
+
+and both must be mapped with same name to **/app** folder at running Docker instance.
+
+But playing with multiples instances who contains distinct dictionaries is most funny. Remember to mapping every one 
+to a different port.
 
 ---
 ## Fun facts
@@ -139,8 +215,8 @@ English language:
 - A word can be composed by only vowels (a, e, i, o, u) as the word [euouae][4]
 - [I found the best anagram in English][5]
 
-Playing with dictionaries of [English][6] (275k words), [Spanish][7] (250k words) or [French][8] (210k words) ... 
-or [Wordnet][9] database ([MIT license][10] [citation][11])
+Playing with dictionaries of [English][6] (275k words), [Spanish][7] (250k words), [French][8] (210k words) ... 
+[Wordnet][9] database for English ([MIT license][10] [citation][11]) or [Other laguages][12]
 
 ---
 [1]: https://en.wikipedia.org/wiki/Anagram
@@ -154,3 +230,4 @@ or [Wordnet][9] database ([MIT license][10] [citation][11])
 [9]: https://wordnet.princeton.edu/download/current-version
 [10]: https://wordnet.princeton.edu/license-and-commercial-use
 [11]: https://wordnet.princeton.edu/citing-wordnet
+[12]: http://globalwordnet.org/resources/wordnets-in-the-world/
