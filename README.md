@@ -118,7 +118,7 @@ Server would be running with
 2019-05-29 18:00:33.849  INFO 26363 --- [  XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
 ```
  
-Test /language endpoint with curl
+Test **/language** endpoint with curl
  
 ```bash
 [project.path]$ curl -i -H "Accept: application/json" http://localhost:8080/language
@@ -130,6 +130,8 @@ Date: Thu, 30 May 2019 16:04:07 GMT
 
 {"language":"en"}
 ```
+
+An important thing, dictionary is loading **asynchronously** at server startup.
 
 ### Docker image
 
