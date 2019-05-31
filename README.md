@@ -79,7 +79,9 @@ Use <ctrl> + C to finish
 
 ## Kotlin server
  
-A minimal Kotlin Spring Boot server
+A minimal Kotlin Spring Boot server that exposes two endpoints
+- **/language**, response is dictionary's language
+- **/anagrams/{text}**, response is all anagrams for the 'text' received as path parameter
 
 Server would be running with
  
