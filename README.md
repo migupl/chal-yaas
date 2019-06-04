@@ -1,4 +1,4 @@
-# Anagrams solver with clients
+# Anagrams solver with command line application and minimal server in Kotlin
 
 An [anagram][1] is a word or sentence that can be rearranged to create another one, like **parliament** can be 
 turn to **partial men**, or **Clint Eastwood** can turn into **Old West Action** ([Internet Anagram Server][2])
@@ -199,10 +199,20 @@ Date: Fri, 31 May 2019 08:28:28 GMT
 
 gets empty response because the dictionary only contains a few words.
 
-The important things are the volume definition (config and dictionary path) at instance start. 
+The important things are the volume definition (config and dictionary path) at instance starting.
+
+```bash
+[project.path]$ sudo docker run -it -p 8080:8080 -v <absolute local path to>/<dictionary folder>:/app/<dictionary folder> -v <absolute local path to>/application.yml:/app/application.yml anagrams_server
+```
+
 You have to define:
-- **application.yml**, defines path to dictionary and language of this
-- **<folder>**, dictionary folder
+- **application.yml**, defines path to dictionary and language like for example
+  ```yaml
+    dictionary:
+      language: en
+      folder: <dictionary folder>
+    ```
+- **\<dictionary folder\>**, dictionary folder
 
 and both must be mapped with same name to **/app** folder at running Docker instance.
 
