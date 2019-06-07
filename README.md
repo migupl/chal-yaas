@@ -1,15 +1,15 @@
 # Anagrams solver with command line application and minimal server in Kotlin
 
-An [anagram][1] is a word or sentence that can be rearranged to create another one, like **parliament** can be 
-turn to **partial men**, or **Clint Eastwood** can turn into **Old West Action** ([Internet Anagram Server][2])
+An [anagram][1] is a word or sentence that can be rearranged to create another one, such as **parliament** that can be 
+turn into **partial men**, or **Clint Eastwood** can turn into **Old West Action** ([Internet Anagram Server][2])
 
-The goal is to implement a command line application that allows both finding the longest anagram and all existing 
-anagrams in the dictionary used.
+The initial goal is to implement a command line application that allows both finding the longest anagram and all existing 
+ones at the loaded dictionary.
 
-A dictionary will be a list of words where a line contains only a word or a sentence.
+A dictionary is a list of lines in which each line contains only a word or a sentence.
 
-The running application reads all the text files from a given directory, as parameter, that would work as dictionaries and gives a 
-prompt to search for anagrams as for example:
+The running application reads all the text files from the given directory, as a parameter, and gives us a 
+prompt to search for anagrams as below:
 
 ```bash
 $ groovy -cp ... <path-to-dictionary-folder>
@@ -20,7 +20,7 @@ Use <ctrl> + C to finish
 
 ## Environment
 
-Groovy is used as programming language and Gradle (local installation) as build tool 
+Groovy and Gradle are used 
 
 ```bash
 $ ./gradlew -v
@@ -77,9 +77,9 @@ Use <ctrl> + C to finish
 * Write a word for searching anagrams: anagrams
 ```
 
-## Kotlin server
+## Kotlin server running Spring Boot 2
  
-A minimal Kotlin Spring Boot server that exposes two endpoints
+The server exposes two endpoints
 - **/language**, response is dictionary's language
 - **/anagrams/{text}**, response is all anagrams for the 'text' received as path parameter
 
