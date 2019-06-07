@@ -1,4 +1,4 @@
-# Anagrams solver with command line application and minimal server in Kotlin
+# Anagrams solver with command line application and minimal server
 
 An [anagram][1] is a word or sentence that can be rearranged to create another one, such as **parliament** that can be 
 turn into **partial men**, or **Clint Eastwood** can turn into **Old West Action** ([Internet Anagram Server][2])
@@ -61,6 +61,37 @@ when 'anagrams' subproject jar was generated.
 [project.path]$ ./gradlew anagrams:jar
 ```
 
+## OWASP 10 dependency check
+
+Dependency check tasks are available
+
+```bash
+[project.path]$ ./gradlew tasks
+...
+OWASP dependency-check tasks
+----------------------------
+dependencyCheckAggregate - Identifies and reports known vulnerabilities (CVEs) in multi-project dependencies.
+dependencyCheckAnalyze - Identifies and reports known vulnerabilities (CVEs) in project dependencies.
+dependencyCheckPurge - Purges the local cache of the NVD.
+dependencyCheckUpdate - Downloads and stores updates from the NVD CVE data feeds.
+...
+
+```
+
+As by example
+```bash
+[project.path]$  ./gradlew dependencyCheckAnalyze
+
+> Task :dependencyCheckAnalyze
+Verifying dependencies for project chal-yaas
+Checking for updates and analyzing dependencies for vulnerabilities
+Generating report for project chal-yaas
+Found 0 vulnerabilities in project chal-yaas
+
+BUILD SUCCESSFUL in 1s
+1 actionable task: 1 executed
+```
+
 ## Anagrammatist command line application
 
 ### Installation
@@ -77,7 +108,7 @@ Use <ctrl> + C to finish
 * Write a word for searching anagrams: anagrams
 ```
 
-## Kotlin server running Spring Boot 2
+## Kotlin Spring Boot server
  
 The server exposes two endpoints
 - **/language**, response is dictionary's language
