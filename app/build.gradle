@@ -4,11 +4,10 @@ plugins {
     id 'application'
 }
 
-
 dependencies {
-    implementation 'org.codehaus.groovy:groovy-all:2.5.4'
+    implementation 'org.codehaus.groovy:groovy:2.5.7'
 
-    compile project(':anagrams') 
+    compile project(':anagrams')
 }
 
 mainClassName = 'Anagrammatist'
