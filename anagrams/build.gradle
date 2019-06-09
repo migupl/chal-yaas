@@ -4,8 +4,9 @@ plugins {
 }
 
 dependencies {
-    implementation 'org.codehaus.groovy:groovy-all:2.5.4'
+    implementation 'org.codehaus.groovy:groovy:2.5.7'
 
+    testImplementation 'org.codehaus.groovy:groovy-test:2.5.7'
     testImplementation 'org.spockframework:spock-core:1.2-groovy-2.5'
 }
 
