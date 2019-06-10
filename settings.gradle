@@ -1,4 +1,4 @@
 rootProject.name = 'chal-yaas'
 
-include 'anagrams', 'app', 'server'
+include 'anagrams', 'app'
 project(":app").name = "anagrammatist"
